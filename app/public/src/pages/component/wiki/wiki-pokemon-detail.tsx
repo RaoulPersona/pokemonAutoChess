@@ -25,7 +25,6 @@ export default function WikiPokemonDetail(props: { pokemon: Pkm }) {
     () => getPokemonData(props.pokemon),
     [props.pokemon]
   )
-  const evolutions = pokemonData.evolution ? [pokemonData.evolution] : pokemonData.evolutions
   const statProp: Record<Stat, string> = {
     [Stat.ATK]: "atk",
     [Stat.DEF]: "def",
@@ -35,7 +34,7 @@ export default function WikiPokemonDetail(props: { pokemon: Pkm }) {
     [Stat.SPE_DEF]: "speDef",
     [Stat.CRIT_CHANCE]: "critChance",
     [Stat.CRIT_POWER]: "critPower",
-    [Stat.SPEED]: "speed",
+    [Stat.ATK_SPEED]: "atkSpeed",
     [Stat.PP]: "maxPP",
     [Stat.AP]: "ap",
     [Stat.SHIELD]: "shield",
@@ -72,18 +71,18 @@ export default function WikiPokemonDetail(props: { pokemon: Pkm }) {
         </dd>
         <dt>{t("evolution")}</dt>
         <dd>
-          {evolutions.length === 0 ? (
+          {!pokemonData.evolution ? (
             "No evolution"
-          ) : (evolutions.map((evolution) => (
-            <div key={evolution}>
+          ) : (
+            <>
               <img
-                src={getPortraitSrc(PkmIndex[evolution])}
+                src={getPortraitSrc(PkmIndex[pokemonData.evolution])}
                 style={{ marginRight: "0.5em" }}
               />
               <span className="pokemon-name">
-                {t(`pkm.${evolution}`)}
+                {t(`pkm.${pokemonData.evolution}`)}
               </span>
-            </div>))
+            </>
           )}
         </dd>
 
